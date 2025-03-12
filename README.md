@@ -10,3 +10,7 @@ This project sets up a **Docker-based L2TP/IPSec VPN client** and exposes an **H
 docker compose build
 docker compose up -d
 ```
+
+### Credits
+
+Based on [r0hm1's l2tp-vpn-client](https://github.com/r0hm1/l2tp-vpn-client).
