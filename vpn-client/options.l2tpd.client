@@ -1,16 +1,28 @@
+# PPP options for L2TP/IPSec VPN Client
+# This file is dynamically configured during container startup
+
+# IPCP Configuration
 ipcp-accept-local
 ipcp-accept-remote
+
+# Authentication Settings
 refuse-eap
 require-mschap-v2
 noccp
 noauth
+
+# Logging Configuration
 logfile /var/log/xl2tpd.log
+debug
+
+# Connection Parameters
 idle 72000
 mtu 1410
 mru 1410
 defaultroute
 usepeerdns
-debug
 connect-delay 5000
-name myuser@myhost.com
-password myuserpassword
+
+# Credentials (dynamically replaced at runtime)
+name PLACEHOLDER_USERNAME
+password PLACEHOLDER_PASSWORD

@@ -1,18 +1,16 @@
-FROM alpine:3.11
+FROM alpine:3.18
 
 # Set correct default environment variables.
-ENV LANG C.UTF-8
-ENV TZ Europe/Paris
+ENV LANG=C.UTF-8 \
+    TZ=Europe/Paris
 
 RUN set -x \
-    && apk add --no-cache shadow sudo \
-    && apk add --no-cache  \
-              strongswan \
-              xl2tpd \
-              curl \
-              grep \
-              tzdata \
-              nano \
+    && apk add --no-cache \
+        strongswan \
+        xl2tpd \
+        curl \
+        grep \
+        tzdata \
     && mkdir -p /var/run/xl2tpd \
     && touch /var/run/xl2tpd/l2tp-control
 
@@ -25,7 +23,7 @@ COPY options.l2tpd.client /etc/ppp/options.l2tpd.client
 # Copy scripts
 COPY startup.sh /etc/
 COPY vpn-entrypoint.sh /vpn-entrypoint.sh
-RUN chmod +x /vpn-entrypoint.sh && chmod +x /etc/startup.sh
+RUN chmod +x /vpn-entrypoint.sh /etc/startup.sh
 
 WORKDIR /home
 
