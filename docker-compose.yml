@@ -1,0 +1,37 @@
+services:
+  vpn-client:
+    build: ./vpn-client
+    container_name: vpn-client
+    cap_add:
+      - NET_ADMIN
+    volumes:
+      - "/lib/modules:/lib/modules:ro"
+    environment:
+      - VPN_SERVER_IPV4=${VPN_SERVER}
+      - VPN_PSK=${VPN_IPSEC_PSK}
+      - VPN_USERNAME=${VPN_USER}
+      - VPN_PASSWORD=${VPN_PASSWORD}
+      - TZ=${TZ}
+      - LAN=${LAN}
+    ports:
+      - "8888:8888"
+    restart: unless-stopped
+    privileged: true
+    networks:
+      - vpn_network
+
+  tinyproxy:
+    build: ./tinyproxy
+    container_name: tinyproxy
+    network_mode: "container:vpn-client"
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - TZ=${TZ}
+    volumes:
+      - ./tinyproxy/tinyproxy.conf:/etc/tinyproxy/tinyproxy.conf
+    restart: unless-stopped
+
+networks:
+  vpn_network:
+    driver: bridge
