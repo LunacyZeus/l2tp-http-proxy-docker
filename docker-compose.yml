@@ -23,7 +23,7 @@ services:
   tinyproxy:
     build: ./tinyproxy
     container_name: tinyproxy
-    network_mode: "container:vpn-client"
+    #network_mode: "container:vpn-client"
     cap_add:
       - NET_ADMIN
     environment:
