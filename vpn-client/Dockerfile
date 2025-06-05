@@ -1,8 +1,8 @@
 FROM alpine:3.18
 
-# Set correct default environment variables.
-ENV LANG=C.UTF-8 \
-    TZ=Europe/Paris
+
+#切到国内镜像
+RUN set -eux && sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories
 
 RUN set -x \
     && apk add --no-cache \
